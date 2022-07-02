@@ -96,7 +96,7 @@ view: selection_summary {
   parameter: input_data_view_name {
     # Model Name + "_input_data"
     type: unquoted
-    default_value: "bqml_extension_model_input_data"
+    default_value: "bqml_accelerator_input_data"
   }
 
   parameter: target_field_name {
