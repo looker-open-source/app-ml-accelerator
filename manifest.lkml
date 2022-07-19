@@ -1,4 +1,4 @@
-project_name: "bqml-accelerator"
+project_name: "app_bqml_accelerator"
 
 application: bqml-accelerator {
   label: "BQML Accelerator"
