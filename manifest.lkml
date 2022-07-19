@@ -23,7 +23,7 @@ application: bqml-accelerator {
 }
 
 constant: CONNECTION_NAME {
-  value: "choose-connection"
+  value: "bqml_accelerator"
   export: override_required
 }
 
