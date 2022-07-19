@@ -1,5 +1,5 @@
 view: model_info {
-  sql_table_name: `@{GCP_PROJECT}`.@{bqml_model_dataset_name}.bqml_model_info ;;
+  sql_table_name: `@{GCP_PROJECT}`.@{BQML_MODEL_DATASET_NAME}.bqml_model_info ;;
 
   dimension: model_guid {
     type: string

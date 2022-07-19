@@ -22,7 +22,7 @@ view: selection_summary {
                                        count_distinct_values)
          FROM (
           SELECT * FROM (
-            WITH `table` AS (SELECT * FROM `@{GCP_PROJECT}.@{bqml_model_dataset_name}.{% parameter selection_summary.input_data_view_name %}` )
+            WITH `table` AS (SELECT * FROM `@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}.{% parameter selection_summary.input_data_view_name %}` )
                 , corr_table as (SELECT * FROM `table` where {% parameter selection_summary.target_field_name %} is not null)
                 , table_as_json AS (SELECT REGEXP_REPLACE(TO_JSON_STRING(t), r'^{|}$', '') AS ROW FROM `table` AS t )
                 , corr_table_as_json AS (SELECT REGEXP_REPLACE(TO_JSON_STRING(t), r'^{|}$', '') AS ROW FROM corr_table AS t)
@@ -35,9 +35,9 @@ view: selection_summary {
                             FROM corr_table_as_json,UNNEST(SPLIT(ROW, ',"')) AS z,UNNEST([SPLIT(z, ':')[SAFE_OFFSET(0)]]) AS column_name
                                 ,UNNEST([SPLIT(z, ':')[SAFE_OFFSET(1)]]) AS column_value )
                 , corr_profile AS (
-                    SELECT split(replace('`@{GCP_PROJECT}.@{bqml_model_dataset_name}.{% parameter selection_summary.input_data_view_name %}`','`',''),'.' )[safe_offset(0)] as table_catalog,
-                           split(replace('`@{GCP_PROJECT}.@{bqml_model_dataset_name}.{% parameter selection_summary.input_data_view_name %}`','`',''),'.' )[safe_offset(1)] as table_schema,
-                           split(replace('`@{GCP_PROJECT}.@{bqml_model_dataset_name}.{% parameter selection_summary.input_data_view_name %}`','`',''),'.' )[safe_offset(2)] as table_name,
+                    SELECT split(replace('`@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}.{% parameter selection_summary.input_data_view_name %}`','`',''),'.' )[safe_offset(0)] as table_catalog,
+                           split(replace('`@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}.{% parameter selection_summary.input_data_view_name %}`','`',''),'.' )[safe_offset(1)] as table_schema,
+                           split(replace('`@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}.{% parameter selection_summary.input_data_view_name %}`','`',''),'.' )[safe_offset(2)] as table_name,
                            column_name,
                            COUNTIF(column_value IS NOT NULL) AS corr_non_nulls,
                     FROM corr_pairs
@@ -47,9 +47,9 @@ view: selection_summary {
                     ORDER BY column_name)
                 , profile AS (
                     SELECT
-                      split(replace('`@{GCP_PROJECT}.@{bqml_model_dataset_name}.{% parameter selection_summary.input_data_view_name %}`','`',''),'.' )[safe_offset(0)] as table_catalog,
-                      split(replace('`@{GCP_PROJECT}.@{bqml_model_dataset_name}.{% parameter selection_summary.input_data_view_name %}`','`',''),'.' )[safe_offset(1)] as table_schema,
-                      split(replace('`@{GCP_PROJECT}.@{bqml_model_dataset_name}.{% parameter selection_summary.input_data_view_name %}`','`',''),'.' )[safe_offset(2)] as table_name,
+                      split(replace('`@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}.{% parameter selection_summary.input_data_view_name %}`','`',''),'.' )[safe_offset(0)] as table_catalog,
+                      split(replace('`@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}.{% parameter selection_summary.input_data_view_name %}`','`',''),'.' )[safe_offset(1)] as table_schema,
+                      split(replace('`@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}.{% parameter selection_summary.input_data_view_name %}`','`',''),'.' )[safe_offset(2)] as table_name,
                       column_name,
                       COUNT(*) AS table_rows,
                       COUNT(DISTINCT column_value) AS count_distinct_values,
@@ -84,7 +84,7 @@ view: selection_summary {
               ,  column_name
               ,  data_type
           FROM
-            `@{GCP_PROJECT}.@{bqml_model_dataset_name}`.INFORMATION_SCHEMA.COLUMNS
+            `@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}`.INFORMATION_SCHEMA.COLUMNS
         ) column_metadata
         ON  column_stats.table_catalog = column_metadata.table_catalog
         AND column_stats.table_schema = column_metadata.table_schema

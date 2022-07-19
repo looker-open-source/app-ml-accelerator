@@ -121,17 +121,17 @@ view: boosted_tree {
 ## Trial Info only usable when model has been trained with Hyperparameter tuning options
 # view: boosted_tree_trial_info {
 #   extends: [trial_info_base]
-#   sql_table_name: ML.TRIAL_INFO(MODEL @{bqml_model_dataset_name}.{% parameter boosted_tree.model_name %}) ;;
+#   sql_table_name: ML.TRIAL_INFO(MODEL @{BQML_MODEL_DATASET_NAME}.{% parameter boosted_tree.model_name %}) ;;
 # }
 
 view: boosted_tree_feature_info {
   extends: [feature_info_base]
-  sql_table_name: ML.FEATURE_INFO(MODEL @{bqml_model_dataset_name}.{% parameter boosted_tree.model_name %}) ;;
+  sql_table_name: ML.FEATURE_INFO(MODEL @{BQML_MODEL_DATASET_NAME}.{% parameter boosted_tree.model_name %}) ;;
 }
 
 view: boosted_tree_training_info {
   extends: [training_info_base]
-  sql_table_name: ML.TRAINING_INFO(MODEL @{bqml_model_dataset_name}.{% parameter boosted_tree.model_name %}) ;;
+  sql_table_name: ML.TRAINING_INFO(MODEL @{BQML_MODEL_DATASET_NAME}.{% parameter boosted_tree.model_name %}) ;;
 }
 
 ## Model Use Phase
@@ -139,7 +139,7 @@ view: boosted_tree_evaluate {
   label: "Evaluation Metrics"
   extends: [evaluate_base]
 
-  sql_table_name: ML.EVALUATE(MODEL @{bqml_model_dataset_name}.{% parameter boosted_tree.model_name %}) ;;
+  sql_table_name: ML.EVALUATE(MODEL @{BQML_MODEL_DATASET_NAME}.{% parameter boosted_tree.model_name %}) ;;
 }
 
 view: boosted_tree_predict {

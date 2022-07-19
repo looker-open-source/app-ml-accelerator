@@ -115,7 +115,7 @@ view: arima {
 view: arima_coefficients {
   label: "Coefficients"
 
-  sql_table_name: ML.ARIMA_COEFFICIENTS(MODEL @{bqml_model_dataset_name}.{% parameter arima.model_name %}) ;;
+  sql_table_name: ML.ARIMA_COEFFICIENTS(MODEL @{BQML_MODEL_DATASET_NAME}.{% parameter arima.model_name %}) ;;
 
   dimension: ar_coefficients { hidden: yes }
   dimension: ma_coefficients { hidden: yes }
@@ -149,12 +149,12 @@ view: arima_ma_coefficients {
 view: arima_feature_info {
   label: "Feature Info"
   extends: [feature_info_base]
-  sql_table_name: ML.FEATURE_INFO(MODEL @{bqml_model_dataset_name}.{% parameter arima.model_name %}) ;;
+  sql_table_name: ML.FEATURE_INFO(MODEL @{BQML_MODEL_DATASET_NAME}.{% parameter arima.model_name %}) ;;
 }
 view: arima_training_info {
   label: "Training Info"
   extends: [training_info_base]
-  sql_table_name: ML.TRAINING_INFO(MODEL @{bqml_model_dataset_name}.{% parameter arima.model_name %}) ;;
+  sql_table_name: ML.TRAINING_INFO(MODEL @{BQML_MODEL_DATASET_NAME}.{% parameter arima.model_name %}) ;;
 }
 
 ## Model Use Phase
@@ -163,7 +163,7 @@ view: arima_evaluate {
   label: "Evaluation Metrics"
   extends: [evaluate_base]
 
-  sql_table_name: ML.ARIMA_EVALUATE(MODEL @{bqml_model_dataset_name}.{% parameter arima.model_name %}
+  sql_table_name: ML.ARIMA_EVALUATE(MODEL @{BQML_MODEL_DATASET_NAME}.{% parameter arima.model_name %}
     , STRUCT(FALSE AS show_all_candidate_models)) ;;
 }
 view: arima_forecast {
@@ -171,7 +171,7 @@ view: arima_forecast {
 
   extends: [forecast_base]
 
-  # sql_table_name: ML.FORECAST(MODEL @{bqml_model_dataset_name}.{% parameter arima.model_name %}
+  # sql_table_name: ML.FORECAST(MODEL @{BQML_MODEL_DATASET_NAME}.{% parameter arima.model_name %}
   #                           , STRUCT({% parameter arima.set_horizon %} AS horizon
   #                           , {% parameter arima.set_confidence_level %} AS confidence_level)) ;;
 
@@ -185,7 +185,7 @@ view: arima_forecast {
               ,  confidence_level
               ,  prediction_interval_lower_bound
               ,  prediction_interval_upper_bound
-          from ML.FORECAST(MODEL @{bqml_model_dataset_name}.{% parameter arima.model_name %}
+          from ML.FORECAST(MODEL @{BQML_MODEL_DATASET_NAME}.{% parameter arima.model_name %}
                          , STRUCT({% parameter arima.set_horizon %} AS horizon
                          , {% parameter arima.set_confidence_level %} AS confidence_level)
                         )
@@ -194,7 +194,7 @@ view: arima_forecast {
         -- uses input_data for min_date and forecast_values for max date
         date_series as (
         select date from unnest(GENERATE_DATE_ARRAY(
-            (select min({% parameter arima.time_series_timestamp_col %}) min_date from @{bqml_model_dataset_name}.{% parameter arima.input_table_name %}),
+            (select min({% parameter arima.time_series_timestamp_col %}) min_date from @{BQML_MODEL_DATASET_NAME}.{% parameter arima.input_table_name %}),
             (select max(date(forecast_timestamp)) max_date from forecast_values),
             INTERVAL 1 DAY)) date
         )
@@ -204,7 +204,7 @@ view: arima_forecast {
       , i.{% parameter arima.time_series_timestamp_col %} as time_series_timestamp_col
       , f.*
       from date_series d
-      left join @{bqml_model_dataset_name}.{% parameter arima.input_table_name %} i
+      left join @{BQML_MODEL_DATASET_NAME}.{% parameter arima.input_table_name %} i
       on i.{% parameter arima.time_series_timestamp_col %} = d.date
       left join forecast_values f
       on date(f.forecast_timestamp) = d.date
@@ -279,7 +279,7 @@ view: arima_forecast {
 view: arima_explain_forecast {
   label: "Explain Forecast"
 
-  sql_table_name: ML.EXPLAIN_FORECAST(MODEL @{bqml_model_dataset_name}.{% parameter arima.model_name %}
+  sql_table_name: ML.EXPLAIN_FORECAST(MODEL @{BQML_MODEL_DATASET_NAME}.{% parameter arima.model_name %}
                                     , STRUCT({% parameter arima.set_horizon %} AS horizon
                                     , {% parameter arima.set_confidence_level %} AS confidence_level)) ;;
 

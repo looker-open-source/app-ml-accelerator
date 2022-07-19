@@ -54,8 +54,8 @@ view: kmeans {
 view: k_means_predict {
   label: "Predictions"
 
-  sql_table_name: ML.PREDICT(MODEL @{bqml_model_dataset_name}.{% parameter kmeans.model_name %}_k_means_model_{{ _explore._name }},
-                      TABLE @{bqml_model_dataset_name}.{% parameter kmeans.model_name %}_input_data
+  sql_table_name: ML.PREDICT(MODEL @{BQML_MODEL_DATASET_NAME}.{% parameter kmeans.model_name %}_k_means_model_{{ _explore._name }},
+                      TABLE @{BQML_MODEL_DATASET_NAME}.{% parameter kmeans.model_name %}_input_data
                     )
   ;;
 
@@ -158,7 +158,7 @@ view: k_means_predict {
   view: k_means_evaluate {
     label: "Evaluation Metrics"
 
-    sql_table_name: ML.EVALUATE(MODEL @{bqml_model_dataset_name}.{% parameter model_name.select_model_name %}_k_means_model_{{ _explore._name }}) ;;
+    sql_table_name: ML.EVALUATE(MODEL @{BQML_MODEL_DATASET_NAME}.{% parameter model_name.select_model_name %}_k_means_model_{{ _explore._name }}) ;;
 
     dimension: davies_bouldin_index {
       type: number
@@ -177,7 +177,7 @@ view: k_means_predict {
   view: k_means_evaluate_create {
     derived_table: {
       create_process: {
-        sql_step: CREATE TABLE IF NOT EXISTS @{bqml_model_dataset_name}.{% parameter model_name.select_model_name %}_k_means_evaluation_metrics_{{ _explore._name }}
+        sql_step: CREATE TABLE IF NOT EXISTS @{BQML_MODEL_DATASET_NAME}.{% parameter model_name.select_model_name %}_k_means_evaluation_metrics_{{ _explore._name }}
               (item_id              STRING,
               features              STRING,
               number_of_clusters    STRING,
@@ -186,7 +186,7 @@ view: k_means_predict {
               mean_squared_distance FLOAT64)
               ;;
 
-          sql_step: MERGE @{bqml_model_dataset_name}.{% parameter model_name.select_model_name %}_k_means_evaluation_metrics_{{ _explore._name }} AS T
+          sql_step: MERGE @{BQML_MODEL_DATASET_NAME}.{% parameter model_name.select_model_name %}_k_means_evaluation_metrics_{{ _explore._name }} AS T
                 USING (SELECT  '{% parameter k_means_training_data.select_item_id %}' AS item_id,
                 {% assign features = _filters['k_means_training_data.select_features'] | sql_quote | remove: '"' | remove: "'" %}
                 '{{ features }}' AS features,
@@ -194,7 +194,7 @@ view: k_means_predict {
                 CURRENT_TIMESTAMP AS created_at,
                 davies_bouldin_index,
                 mean_squared_distance
-                FROM ML.EVALUATE(MODEL @{bqml_model_dataset_name}.{% parameter model_name.select_model_name %}_k_means_model_{{ _explore._name }})
+                FROM ML.EVALUATE(MODEL @{BQML_MODEL_DATASET_NAME}.{% parameter model_name.select_model_name %}_k_means_model_{{ _explore._name }})
                 ) AS S
                 ON T.item_id = S.item_id AND T.features = S.features AND T.number_of_clusters = S.number_of_clusters
                 WHEN MATCHED THEN
@@ -220,7 +220,7 @@ view: k_means_predict {
     view: k_means_evaluate_history {
       label: "[6] BQML: Evaluation Metrics"
 
-      sql_table_name: @{bqml_model_dataset_name}.{% parameter model_name.select_model_name %}_k_means_evaluation_metrics_{{ _explore._name }} ;;
+      sql_table_name: @{BQML_MODEL_DATASET_NAME}.{% parameter model_name.select_model_name %}_k_means_evaluation_metrics_{{ _explore._name }} ;;
 
       dimension: item_id {
         group_label: "Metric History"
@@ -269,7 +269,7 @@ view: k_means_predict {
     view: k_means_centroids {
       label: "Centroids"
 
-      sql_table_name: ML.CENTROIDS(MODEL @{bqml_model_dataset_name}.{% parameter model_name.select_model_name %}_k_means_model_{{ _explore._name }}) ;;
+      sql_table_name: ML.CENTROIDS(MODEL @{BQML_MODEL_DATASET_NAME}.{% parameter model_name.select_model_name %}_k_means_model_{{ _explore._name }}) ;;
 
       dimension: centroid_id {
         hidden: yes
