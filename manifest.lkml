@@ -17,13 +17,13 @@ application: bqml-accelerator {
       "looker_client_secret",
       "access_token_server_endpoint"
     ]
-    external_api_urls: ["https://bigquery.googleapis.com"]
+    external_api_urls: ["https://bigquery.googleapis.com","https://bqml-accelerator.uw.r.appspot.com"]
     oauth2_urls: ["https://accounts.google.com/o/oauth2/v2/auth"]
   }
 }
 
 constant: CONNECTION_NAME {
-  value: "connection"
+  value: "bqml_accelerator"
   export: override_required
 }
 
