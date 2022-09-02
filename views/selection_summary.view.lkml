@@ -10,6 +10,7 @@ view: selection_summary {
               , column_stats.count_distinct_values
               , column_stats.pct_unique
               , column_metadata.data_type
+              , column_metadata.input_data_column_count
               , column_stats.* EXCEPT (table_catalog,
                                        table_schema,
                                        table_name,
@@ -17,7 +18,6 @@ view: selection_summary {
                                        _nulls,
                                        _non_nulls,
                                        pct_not_null,
-                                       table_rows,
                                        pct_unique,
                                        count_distinct_values)
          FROM (
@@ -51,7 +51,7 @@ view: selection_summary {
                       split(replace('`@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}.{% parameter selection_summary.input_data_view_name %}`','`',''),'.' )[safe_offset(1)] as table_schema,
                       split(replace('`@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}.{% parameter selection_summary.input_data_view_name %}`','`',''),'.' )[safe_offset(2)] as table_name,
                       column_name,
-                      COUNT(*) AS table_rows,
+                      COUNT(0) AS input_data_row_count,
                       COUNT(DISTINCT column_value) AS count_distinct_values,
                       safe_divide(COUNT(DISTINCT column_value),COUNT(*)) AS pct_unique,
                       COUNTIF(column_value IS NULL) AS _nulls,
@@ -83,6 +83,7 @@ view: selection_summary {
               ,  table_name
               ,  column_name
               ,  data_type
+              ,  COUNT(0) OVER (PARTITION BY table_catalog, table_schema, table_name) as input_data_column_count
           FROM
             `@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}`.INFORMATION_SCHEMA.COLUMNS
         ) column_metadata
@@ -180,4 +181,15 @@ view: selection_summary {
     type: number
     sql: ${TABLE}._avg_value ;;
   }
+
+  dimension: input_data_column_count {
+    type: number
+    sql: ${TABLE}.input_data_column_count ;;
+  }
+
+  dimension: input_data_row_count {
+    type: number
+    sql: ${TABLE}.input_data_row_count ;;
+  }
+
 }
