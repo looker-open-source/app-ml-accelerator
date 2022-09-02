@@ -1,6 +1,6 @@
 view: selection_summary {
   derived_table: {
-    persist_for: "0 seconds"
+
     sql:
        SELECT column_stats.column_name
                           , column_stats._nulls as count_nulls
