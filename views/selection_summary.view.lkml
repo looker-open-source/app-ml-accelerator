@@ -2,95 +2,65 @@ view: selection_summary {
   derived_table: {
     persist_for: "0 seconds"
     sql:
-         SELECT column_stats.column_name
-              , column_stats._nulls as count_nulls
-              , column_stats._non_nulls as count_not_nulls
-              , column_stats.corr_non_nulls as count_corr_not_nulls
-              , column_stats.pct_not_null as pct_not_null
-              , column_stats.count_distinct_values
-              , column_stats.pct_unique
-              , column_metadata.data_type
-              , column_metadata.input_data_column_count
-              , column_stats.* EXCEPT (table_catalog,
-                                       table_schema,
-                                       table_name,
-                                       column_name,
-                                       _nulls,
-                                       _non_nulls,
-                                       pct_not_null,
-                                       pct_unique,
-                                       count_distinct_values)
-         FROM (
-          SELECT * FROM (
-            WITH `table` AS (SELECT * FROM `@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}.{% parameter selection_summary.input_data_view_name %}` )
-                , corr_table as (SELECT * FROM `table` where {% parameter selection_summary.target_field_name %} is not null)
-                , table_as_json AS (SELECT REGEXP_REPLACE(TO_JSON_STRING(t), r'^{|}$', '') AS ROW FROM `table` AS t )
-                , corr_table_as_json AS (SELECT REGEXP_REPLACE(TO_JSON_STRING(t), r'^{|}$', '') AS ROW FROM corr_table AS t)
-                , pairs AS (SELECT REPLACE(column_name, '"', '') AS column_name
-                                 , IF (SAFE_CAST(column_value AS STRING)='null',NULL, column_value) AS column_value
-                            FROM table_as_json,UNNEST(SPLIT(ROW, ',"')) AS z,UNNEST([SPLIT(z, ':')[SAFE_OFFSET(0)]]) AS column_name
-                                ,UNNEST([SPLIT(z, ':')[SAFE_OFFSET(1)]]) AS column_value )
-                , corr_pairs as (SELECT REPLACE(column_name, '"', '') AS column_name
-                                 , IF (SAFE_CAST(column_value AS STRING)='null',NULL, column_value) AS column_value
-                            FROM corr_table_as_json,UNNEST(SPLIT(ROW, ',"')) AS z,UNNEST([SPLIT(z, ':')[SAFE_OFFSET(0)]]) AS column_name
-                                ,UNNEST([SPLIT(z, ':')[SAFE_OFFSET(1)]]) AS column_value )
-                , corr_profile AS (
-                    SELECT split(replace('`@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}.{% parameter selection_summary.input_data_view_name %}`','`',''),'.' )[safe_offset(0)] as table_catalog,
-                           split(replace('`@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}.{% parameter selection_summary.input_data_view_name %}`','`',''),'.' )[safe_offset(1)] as table_schema,
-                           split(replace('`@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}.{% parameter selection_summary.input_data_view_name %}`','`',''),'.' )[safe_offset(2)] as table_name,
-                           column_name,
-                           COUNTIF(column_value IS NOT NULL) AS corr_non_nulls,
-                    FROM corr_pairs
-                    WHERE column_name <> ''
-                      AND column_name NOT LIKE '%-%'
-                    GROUP BY column_name
-                    ORDER BY column_name)
-                , profile AS (
-                    SELECT
-                      split(replace('`@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}.{% parameter selection_summary.input_data_view_name %}`','`',''),'.' )[safe_offset(0)] as table_catalog,
-                      split(replace('`@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}.{% parameter selection_summary.input_data_view_name %}`','`',''),'.' )[safe_offset(1)] as table_schema,
-                      split(replace('`@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}.{% parameter selection_summary.input_data_view_name %}`','`',''),'.' )[safe_offset(2)] as table_name,
-                      column_name,
-                      COUNT(0) AS input_data_row_count,
-                      COUNT(DISTINCT column_value) AS count_distinct_values,
-                      safe_divide(COUNT(DISTINCT column_value),COUNT(*)) AS pct_unique,
-                      COUNTIF(column_value IS NULL) AS _nulls,
-                      COUNTIF(column_value IS NOT NULL) AS _non_nulls,
-                      COUNTIF(column_value IS NOT NULL) / COUNT(*) AS pct_not_null,
-                      min(column_value) as _min_value,
-                      max(column_value) as _max_value,
-                      avg(SAFE_CAST(column_value AS numeric)) as _avg_value
-                    FROM
-                      pairs
-                    WHERE
-                      column_name <> ''
-                      AND column_name NOT LIKE '%-%'
-                      GROUP BY
-                      column_name
-                    ORDER BY
-                      column_name)
-            select p.*, corr_p.corr_non_nulls
-            from profile p
-            left join corr_profile corr_p
-              on p.table_catalog = corr_p.table_catalog
-              and p.table_schema = corr_p.table_schema
-              and p.table_name = corr_p.table_name
-              and p.column_name = corr_p.column_name)
-         ) column_stats
-         LEFT OUTER JOIN (
-          SELECT table_catalog
-              ,  table_schema
-              ,  table_name
-              ,  column_name
-              ,  data_type
-              ,  COUNT(0) OVER (PARTITION BY table_catalog, table_schema, table_name) as input_data_column_count
-          FROM
-            `@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}`.INFORMATION_SCHEMA.COLUMNS
-        ) column_metadata
-        ON  column_stats.table_catalog = column_metadata.table_catalog
-        AND column_stats.table_schema = column_metadata.table_schema
-        AND column_stats.table_name = column_metadata.table_name
-        AND column_stats.column_name = column_metadata.column_name
+       SELECT column_stats.column_name
+                          , column_stats._nulls as count_nulls
+                          , column_stats._non_nulls as count_not_nulls
+                          , column_stats.pct_not_null as pct_not_null
+                          , column_stats.count_distinct_values
+                          , column_stats.pct_unique
+                          , column_metadata.data_type
+                          , column_metadata.input_data_column_count
+                          , column_stats.input_data_row_count
+                          , column_stats._min_value
+                          , column_stats._max_value
+                          , column_stats._avg_value
+                     FROM ( SELECT
+                                  column_name,
+                                  COUNT(0) AS input_data_row_count,
+                                  COUNT(DISTINCT column_value) AS count_distinct_values,
+                                  safe_divide(COUNT(DISTINCT column_value),COUNT(*)) AS pct_unique,
+                                  COUNTIF(column_value IS NULL) AS _nulls,
+                                  COUNTIF(column_value IS NOT NULL) AS _non_nulls,
+                                  COUNTIF(column_value IS NOT NULL) / COUNT(0) AS pct_not_null,
+                                  min(column_value) as _min_value,
+                                  max(column_value) as _max_value,
+                                  avg(SAFE_CAST(column_value AS numeric)) as _avg_value
+                                FROM
+                                       (--unpivot input data into column_name, column_value
+                                          --  capture all fields in each row as JSON string (e.g., "field_a": valueA, "field_b": valueB)
+                                          --  unnest array created by split of row_json by ','
+                                          --      "field_a": valueA
+                                          --      "field_b": valueB
+                                          --  split further on : to get separate columns for name and value
+                                          --  format to trim "" from column name and replace any string nulls with true NULLs
+                                          SELECT
+                                            trim(column_name, '"') AS column_name
+                                            ,IF(SAFE_CAST(column_value AS STRING)='null',NULL, column_value) AS column_value
+                                          FROM (
+                                            SELECT
+                                              REGEXP_REPLACE(TO_JSON_STRING(t), r'^{|}$', '') AS row_json
+                                            FROM
+                                              `@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}.{% parameter selection_summary.input_data_view_name %}` AS t ) table_as_json,
+                                            UNNEST(SPLIT(row_json, ',"')) AS cols,
+                                            UNNEST([SPLIT(cols, ':')[SAFE_OFFSET(0)]]) AS column_name,
+                                            UNNEST([SPLIT(cols, ':')[SAFE_OFFSET(1)]]) AS column_value
+                                           ) as col_val
+                                WHERE
+                                  column_name <> ''
+                                  AND column_name NOT LIKE '%-%'
+                                  GROUP BY
+                                  column_name) as column_stats
+                     inner join (SELECT table_catalog
+                                        ,  table_schema
+                                        ,  table_name
+                                        ,  column_name
+                                        ,  data_type
+                                        ,  count(0) over (partition by 1) as input_data_column_count
+                                    FROM
+                                      `@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}`.INFORMATION_SCHEMA.COLUMNS
+                                      where table_name = '{% parameter selection_summary.input_data_view_name %}'
+                                ) column_metadata
+                       on column_stats.column_name = column_metadata.column_name
         ;;
   }
 
@@ -100,16 +70,6 @@ view: selection_summary {
     default_value: "bqml_accelerator_input_data"
   }
 
-  parameter: target_field_name {
-    type: unquoted
-    default_value: "income_bracket"
-  }
-
-  dimension: target_column {
-    type: string
-    sql: '{% parameter target_field_name %}' ;;
-    hidden: yes
-  }
 
   dimension: column_name {
     type: string
@@ -124,18 +84,6 @@ view: selection_summary {
   dimension: count_not_nulls {
     type: number
     sql: ${TABLE}.count_not_nulls ;;
-  }
-
-  dimension: count_corr_not_nulls {
-    type: number
-    sql: ${TABLE}.count_corr_not_nulls ;;
-    hidden: yes
-  }
-
-  dimension: target_correlation {
-    type: number
-    sql: ${count_corr_not_nulls}/nullif(${count_not_nulls},0) ;;
-    value_format_name: percent_2
   }
 
   dimension: pct_not_null {
@@ -160,6 +108,7 @@ view: selection_summary {
   dimension: pct_unique {
     type: number
     sql: ${TABLE}.pct_unique ;;
+    value_format_name: percent_2
   }
 
   dimension: data_type {
@@ -191,5 +140,7 @@ view: selection_summary {
     type: number
     sql: ${TABLE}.input_data_row_count ;;
   }
+
+
 
 }
