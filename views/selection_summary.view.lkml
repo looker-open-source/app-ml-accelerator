@@ -86,13 +86,6 @@ view: selection_summary {
     sql: ${TABLE}.count_not_nulls ;;
   }
 
-  dimension: count_corr_not_nulls {
-    type: number
-    sql: ${TABLE}.count_corr_not_nulls ;;
-    hidden: yes
-  }
-
-
   dimension: pct_not_null {
     type: number
     hidden: yes
@@ -115,6 +108,7 @@ view: selection_summary {
   dimension: pct_unique {
     type: number
     sql: ${TABLE}.pct_unique ;;
+    value_format_name: percent_2
   }
 
   dimension: data_type {
@@ -146,5 +140,7 @@ view: selection_summary {
     type: number
     sql: ${TABLE}.input_data_row_count ;;
   }
+
+
 
   }
