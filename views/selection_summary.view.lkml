@@ -100,7 +100,7 @@ view: selection_summary {
     type: number
     hidden: yes
     sql: ${TABLE}.pct_not_null ;;
-    value_format_name: percent_2
+    value_format_name: percent_4
   }
 
   dimension: pct_null {
