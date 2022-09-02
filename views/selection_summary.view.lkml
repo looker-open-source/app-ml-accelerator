@@ -70,6 +70,16 @@ view: selection_summary {
     default_value: "bqml_accelerator_input_data"
   }
 
+  parameter: target_field_name {
+    type: unquoted
+    default_value: "income_bracket"
+  }
+
+  dimension: target_column {
+    type: string
+    sql: '{% parameter target_field_name %}' ;;
+    hidden: yes
+  }
 
   dimension: column_name {
     type: string
