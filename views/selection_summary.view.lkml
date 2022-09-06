@@ -62,12 +62,10 @@ view: selection_summary {
 
   parameter: input_data_view_name {
     type: unquoted
-    default_value: "input_data_view_name"
   }
 
   parameter: target_field_name {
     type: unquoted
-    default_value: "income_bracket"
   }
 
   dimension: target_column {
