@@ -1,9 +1,9 @@
 view: selection_summary {
   derived_table: {
     sql:  SELECT column_stats.column_name
-            , column_stats._nulls as count_nulls
-            , column_stats._non_nulls as count_not_nulls
-            , column_stats.pct_not_null as pct_not_null
+            , column_stats._nulls AS count_nulls
+            , column_stats._non_nulls AS count_not_nulls
+            , column_stats.pct_not_null AS pct_not_null
             , column_stats.count_distinct_values
             , column_stats.pct_unique
             , column_metadata.data_type
@@ -20,13 +20,13 @@ view: selection_summary {
                   , COUNTIF(column_value IS NULL) AS _nulls
                   , COUNTIF(column_value IS NOT NULL) AS _non_nulls
                   , COUNTIF(column_value IS NOT NULL) / COUNT(0) AS pct_not_null
-                  , min(column_value) as _min_value
-                  , max(column_value) as _max_value
-                  , avg(SAFE_CAST(column_value AS numeric)) as _avg_value
+                  , min(column_value) AS _min_value
+                  , max(column_value) AS _max_value
+                  , avg(SAFE_CAST(column_value AS numeric)) AS _avg_value
 
 
                 -- unpivot input data into column_name, column_value
-                --  capture all fields in each row as JSON string (e.g., "field_a": valueA, "field_b": valueB)
+                --  capture all fields in each row AS JSON string (e.g., "field_a": valueA, "field_b": valueB)
                 --  unnest array created by split of row_json by ','
                 --      "field_a": valueA
                 --      "field_b": valueB
@@ -36,33 +36,33 @@ view: selection_summary {
                         , IF(SAFE_CAST(column_value AS STRING)='null',NULL, column_value) AS column_value
 
                       FROM (SELECT REGEXP_REPLACE(TO_JSON_STRING(t), r'^{|}$', '') AS row_json
-                            FROM `@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}.{% parameter selection_summary.input_data_view_name %}` AS t ) table_as_json
+                            FROM `@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}.{% parameter selection_summary.input_data_view_name %}` AS t ) table_AS_json
                             , UNNEST(SPLIT(row_json, ',"')) AS cols
                             , UNNEST([SPLIT(cols, ':')[SAFE_OFFSET(0)]]) AS column_name
                             , UNNEST([SPLIT(cols, ':')[SAFE_OFFSET(1)]]) AS column_value
 
-                      ) as col_val
+                      ) AS col_val
 
                 WHERE column_name <> '' AND column_name NOT LIKE '%-%'
                 GROUP BY column_name
-                ) as column_stats
+                ) AS column_stats
 
           INNER JOIN (SELECT table_catalog
                           , table_schema
                           , table_name
                           , column_name
                           , data_type
-                          , count(0) over (partition by 1) as input_data_column_count
+                          , count(0) over (partition by 1) AS input_data_column_count
                       FROM `@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}`.INFORMATION_SCHEMA.COLUMNS
                       WHERE table_name = '{% parameter selection_summary.input_data_view_name %}'
                       ) column_metadata
-            on column_stats.column_name = column_metadata.column_name
+            ON column_stats.column_name = column_metadata.column_name
     ;;
   }
 
   parameter: input_data_view_name {
     type: unquoted
-    default_value: "bqml_accelerator_input_data"
+    default_value: "input_data_view_name"
   }
 
   parameter: target_field_name {
