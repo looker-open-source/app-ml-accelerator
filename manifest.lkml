@@ -23,7 +23,7 @@ application: bqml-accelerator {
 }
 
 constant: CONNECTION_NAME {
-  value: "bqml_accelerator"
+  value: "bigquery"
   export: override_required
 }
 
