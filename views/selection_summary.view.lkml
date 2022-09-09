@@ -75,6 +75,7 @@ view: selection_summary {
   }
 
   dimension: column_name {
+    primary_key: yes
     type: string
     sql: ${TABLE}.column_name ;;
   }
