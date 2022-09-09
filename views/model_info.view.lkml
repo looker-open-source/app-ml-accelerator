@@ -1,12 +1,8 @@
 view: model_info {
   sql_table_name: `@{GCP_PROJECT}`.@{BQML_MODEL_DATASET_NAME}.bqml_model_info ;;
 
-  dimension: model_guid {
-    type: string
-    sql: ${TABLE}.model_guid ;;
-  }
-
   dimension: model_name {
+    primary_key: yes
     type: string
     sql: ${TABLE}.model_name ;;
   }
@@ -51,4 +47,7 @@ view: model_info {
     sql: TIMESTAMP_MILLIS(${TABLE}.model_updated_at) ;;
   }
 
+  measure: count {
+    type: count
+  }
 }
