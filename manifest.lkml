@@ -17,8 +17,21 @@ application: bqml-accelerator {
       "looker_client_secret",
       "access_token_server_endpoint"
     ]
-      core_api_methods: ["all_lookml_models", "create_query", "run_query", "lookml_model_explore", "model_fieldname_suggestions", "me", "user_attribute_user_values", "create_sql_query"]
-      external_api_urls: ["https://bigquery.googleapis.com", "https://bqml-accelerator.uw.r.appspot.com"]
+      core_api_methods: [
+        "all_lookml_models",
+        "create_query",
+        "run_query",
+        "lookml_model_explore",
+        "model_fieldname_suggestions",
+        "me",
+        "user_attribute_user_values",
+        "create_sql_query",
+        "run_sql_query"
+        ]
+      external_api_urls: [
+        "https://bigquery.googleapis.com",
+        "https://bqml-accelerator.uw.r.appspot.com"
+        ]
       oauth2_urls: ["https://accounts.google.com/o/oauth2/v2/auth"]
     }
 }
