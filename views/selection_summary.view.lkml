@@ -20,8 +20,8 @@ view: selection_summary {
                   , COUNTIF(column_value IS NULL) AS _nulls
                   , COUNTIF(column_value IS NOT NULL) AS _non_nulls
                   , COUNTIF(column_value IS NOT NULL) / COUNT(0) AS pct_not_null
-                  , MIN(SAFE_CAST(column_value as number)) AS _min_value
-                  , MAX(SAFE_CAST(column_value as number)) AS _max_value
+                  , MIN(SAFE_CAST(column_value as numeric)) AS _min_value
+                  , MAX(SAFE_CAST(column_value as numeric)) AS _max_value
                   , AVG(SAFE_CAST(column_value AS numeric)) AS _avg_value
 
 
