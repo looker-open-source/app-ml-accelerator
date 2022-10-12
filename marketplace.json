@@ -1,0 +1,37 @@
+{
+  "label": "Looker BigQueryML Extension App",
+  "category_label": "Applications",
+  "branding": {
+    "tagline": "Looker BigQueryML Extension App",
+    "brand_color": "#4285F4"
+  },
+  "constants": {
+    "CONNECTION_NAME": {
+      "description": "BigQuery Connection Name",
+      "label": "BigQuery Connection Name",
+      "value_constraint": "connection"
+    }
+  },
+  "user_attributes": {
+    "bigquery_connection_name": {
+      "label": "BigQuery Connection Name",
+      "type": "string",
+      "default_value": ""
+    },
+    "google_client_id": {
+      "label": "Google Client ID",
+      "type": "string",
+      "default_value": ""
+    },
+    "bqml_model_dataset_name": {
+      "label": "BQML Model Dataset Name",
+      "type": "string",
+      "default_value": ""
+    },
+    "gcp_project": {
+      "label": "GCP Project Name",
+      "type": "string",
+      "default_value": ""
+    }
+  }
+}
