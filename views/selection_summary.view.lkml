@@ -16,13 +16,13 @@ view: selection_summary {
           FROM (SELECT column_name,
                   COUNT(0) AS input_data_row_count
                   , COUNT(DISTINCT column_value) AS count_distinct_values
-                  , safe_divide(COUNT(DISTINCT column_value),COUNT(*)) AS pct_unique
+                  , SAFE_DIVIDE(COUNT(DISTINCT column_value),COUNT(*)) AS pct_unique
                   , COUNTIF(column_value IS NULL) AS _nulls
                   , COUNTIF(column_value IS NOT NULL) AS _non_nulls
                   , COUNTIF(column_value IS NOT NULL) / COUNT(0) AS pct_not_null
-                  , min(column_value) AS _min_value
-                  , max(column_value) AS _max_value
-                  , avg(SAFE_CAST(column_value AS numeric)) AS _avg_value
+                  , MIN(SAFE_CAST(column_value as numeric)) AS _min_value
+                  , MAX(SAFE_CAST(column_value as numeric)) AS _max_value
+                  , AVG(SAFE_CAST(column_value AS numeric)) AS _avg_value
 
 
                 -- unpivot input data into column_name, column_value
