@@ -13,23 +13,23 @@
     }
   },
   "user_attributes": {
-    "bigquery_connection_name": {
-      "label": "BigQuery Connection Name",
+    "app_bqml_accelerator_bigquery_connection_name": {
+      "label": "BQML Accelerator App: BigQuery Connection Name",
       "type": "string",
       "default_value": ""
     },
-    "google_client_id": {
-      "label": "Google Client ID",
+    "app_bqml_accelerator_google_client_id": {
+      "label": "BQML Accelerator App: Google Client ID",
       "type": "string",
       "default_value": ""
     },
-    "bqml_model_dataset_name": {
-      "label": "BQML Model Dataset Name",
+    "app_bqml_accelerator_bqml_model_dataset_name": {
+      "label": "BQML Accelerator App: BQML Model Dataset Name",
       "type": "string",
       "default_value": ""
     },
-    "gcp_project": {
-      "label": "GCP Project Name",
+    "app_bqml_accelerator_gcp_project": {
+      "label": "BQML Accelerator App: GCP Project Name",
       "type": "string",
       "default_value": ""
     }
