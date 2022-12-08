@@ -1,4 +1,4 @@
-# Looker BQML Accelerator Extension App
+# Machine Learning Accelerator
 
 ### SETUP INSTRUCTIONS
 
