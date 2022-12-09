@@ -18,11 +18,6 @@
       "type": "string",
       "default_value": ""
     },
-    "app_bqml_accelerator_google_client_id": {
-      "label": "BQML Accelerator App: Google Client ID",
-      "type": "string",
-      "default_value": ""
-    },
     "app_bqml_accelerator_bqml_model_dataset_name": {
       "label": "BQML Accelerator App: BQML Model Dataset Name",
       "type": "string",
