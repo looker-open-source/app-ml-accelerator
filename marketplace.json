@@ -1,8 +1,8 @@
 {
-  "label": "Looker Machine Learning Extension App",
+  "label": "Machine Learning Accelerator",
   "category_label": "Applications",
   "branding": {
-    "tagline": "Looker Machine Learning Extension App",
+    "tagline": "Gain deeper insights with machine learning",
     "brand_color": "#4285F4"
   },
   "constants": {
