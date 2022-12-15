@@ -12,6 +12,6 @@ After adding these files to your application in Looker, there are some values th
 
 2. Create the following user attributes for storing application configuration settings. These settings will be used by the application to create BigQuery objects, including views, tables and ML models. The connection name user attribute value must match the  CONNECTION_NAME LookML constant value.
 
-   - `app_bqml_accelerator_bigquery_connection_name`
-   - `app_bqml_accelerator_gcp_project`
-   - `app_bqml_accelerator_bqml_model_dataset_name`
+   - `app_ml_accelerator_bigquery_connection_name`
+   - `app_ml_accelerator_gcp_project`
+   - `app_ml_accelerator_bqml_model_dataset_name`

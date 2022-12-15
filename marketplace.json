@@ -13,18 +13,18 @@
     }
   },
   "user_attributes": {
-    "app_bqml_accelerator_bigquery_connection_name": {
-      "label": "ML Accelerator App: BigQuery Connection Name",
+    "app_ml_accelerator_bigquery_connection_name": {
+      "label": "Machine Learning Accelerator App: BigQuery Connection Name",
       "type": "string",
       "default_value": ""
     },
-    "app_bqml_accelerator_bqml_model_dataset_name": {
-      "label": "ML Accelerator App: BQML Model Dataset Name",
+    "app_ml_accelerator_bqml_model_dataset_name": {
+      "label": "Machine Learning Accelerator App: BQML Model Dataset Name",
       "type": "string",
       "default_value": ""
     },
-    "app_bqml_accelerator_gcp_project": {
-      "label": "ML Accelerator App: GCP Project Name",
+    "app_ml_accelerator_gcp_project": {
+      "label": "Machine Learning Accelerator App: GCP Project Name",
       "type": "string",
       "default_value": ""
     }
