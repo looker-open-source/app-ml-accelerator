@@ -30,7 +30,7 @@ application: ml-accelerator {
 }
 
 constant: CONNECTION_NAME {
-  value: "bigquery"
+  value: "ml_accelerator"
   export: override_required
 }
 
