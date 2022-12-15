@@ -39,5 +39,5 @@ constant: BQML_MODEL_DATASET_NAME {
 }
 
 constant: GCP_PROJECT {
-  value: "{{_user_attributes['gcp_project']}}"
+  value: "{{_user_attributes['app_bqml_accelerator_gcp_project']}}"
 }
