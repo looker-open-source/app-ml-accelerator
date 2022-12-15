@@ -1,7 +1,7 @@
-project_name: "app-bqml-accelerator"
+project_name: "app-ml-accelerator"
 
-application: bqml-accelerator {
-  label: "BQML Accelerator"
+application: ml-accelerator {
+  label: "Machine Learning Accelerator"
   file: "bundle.js"
   entitlements: {
     core_api_methods: [
