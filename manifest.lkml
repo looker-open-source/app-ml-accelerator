@@ -2,8 +2,7 @@ project_name: "app-ml-accelerator"
 
 application: ml-accelerator {
   label: "Machine Learning Accelerator"
-  # file: "bundle.js"
-  url: "http://localhost:8080/bundle.js"
+  file: "bundle.js"
   entitlements: {
     core_api_methods: [
       "all_lookml_models",
