@@ -2,7 +2,8 @@ project_name: "app-ml-accelerator"
 
 application: ml-accelerator {
   label: "Machine Learning Accelerator"
-  file: "bundle.js"
+  # file: "bundle.js"
+  url: "http://localhost:8080/bundle.js"
   entitlements: {
     core_api_methods: [
       "all_lookml_models",
@@ -22,22 +23,22 @@ application: ml-accelerator {
     new_window: yes
     new_window_external_urls: ["https://developers.google.com/machine-learning/glossary", "https://cloud.google.com/vertex-ai/docs/model-registry/introduction"]
     scoped_user_attributes: [
-      "app_bqml_accelerator_bigquery_connection_name",
-      "app_bqml_accelerator_bqml_model_dataset_name",
-      "app_bqml_accelerator_gcp_project",
+      "app_ml_accelerator_bigquery_connection_name",
+      "app_ml_accelerator_bqml_model_dataset_name",
+      "app_ml_accelerator_gcp_project",
     ]
   }
 }
 
 constant: CONNECTION_NAME {
-  value: "bigquery"
+  value: "ml_accelerator"
   export: override_required
 }
 
 constant: BQML_MODEL_DATASET_NAME {
-  value: "{{_user_attributes['app_bqml_accelerator_bqml_model_dataset_name']}}"
+  value: "{{_user_attributes['app_ml_accelerator_bqml_model_dataset_name']}}"
 }
 
 constant: GCP_PROJECT {
-  value: "{{_user_attributes['app_bqml_accelerator_gcp_project']}}"
+  value: "{{_user_attributes['app_ml_accelerator_gcp_project']}}"
 }

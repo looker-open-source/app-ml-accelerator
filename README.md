@@ -11,7 +11,7 @@ In the `manifest.lkml` file:
 1. Add the following user attributes to your Looker instance:
 
    - `bigquery_connection_name`
-   - `google_client_id`
+   - `client_id`
    - `bqml_model_dataset_name`
    - `gcp_project`
 
