@@ -1,8 +1,8 @@
 {
-  "label": "Looker BigQueryML Extension App",
+  "label": "Machine Learning Accelerator",
   "category_label": "Applications",
   "branding": {
-    "tagline": "Looker BigQueryML Extension App",
+    "tagline": "Gain deeper insights with machine learning",
     "brand_color": "#4285F4"
   },
   "constants": {
@@ -13,23 +13,18 @@
     }
   },
   "user_attributes": {
-    "bigquery_connection_name": {
-      "label": "BigQuery Connection Name",
+    "app_ml_accelerator_bigquery_connection_name": {
+      "label": "Machine Learning Accelerator App: BigQuery Connection Name",
       "type": "string",
       "default_value": ""
     },
-    "google_client_id": {
-      "label": "Google Client ID",
+    "app_ml_accelerator_bqml_model_dataset_name": {
+      "label": "Machine Learning Accelerator App: BQML Model Dataset Name",
       "type": "string",
       "default_value": ""
     },
-    "bqml_model_dataset_name": {
-      "label": "BQML Model Dataset Name",
-      "type": "string",
-      "default_value": ""
-    },
-    "gcp_project": {
-      "label": "GCP Project Name",
+    "app_ml_accelerator_gcp_project": {
+      "label": "Machine Learning Accelerator App: GCP Project Name",
       "type": "string",
       "default_value": ""
     }
