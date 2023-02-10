@@ -60,6 +60,7 @@ view: selection_summary {
     ;;
   }
 
+
   parameter: input_data_view_name {
     type: unquoted
   }
@@ -72,6 +73,17 @@ view: selection_summary {
     type: string
     sql: '{% parameter target_field_name %}' ;;
     hidden: yes
+  }
+
+  ### added to pull in time column field whe ARIMA is used ###
+  parameter: arimaTimeColumn {
+    type: unquoted
+  }
+
+  dimension: arimaTimeColumn_dimension {
+    type: string
+    sql: '{% parameter arimaTimeColumn %}' ;;
+    #hidden: yes
   }
 
   dimension: column_name {
