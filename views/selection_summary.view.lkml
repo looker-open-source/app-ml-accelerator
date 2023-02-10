@@ -86,6 +86,21 @@ view: selection_summary {
     #hidden: yes
   }
 
+  # added to test with Tom
+  parameter: arimaStringPlaceholder {
+    type: unquoted
+  }
+
+  dimension: arimaStringPlaceholder_dimension {
+    type: string
+    sql: '{% parameter arimaStringPlaceholder %}' ;;
+    #hidden: yes
+  }
+
+
+
+
+
   dimension: column_name {
     primary_key: yes
     type: string
