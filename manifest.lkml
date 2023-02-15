@@ -30,7 +30,7 @@ application: ml-accelerator {
 }
 
 constant: CONNECTION_NAME {
-  value: "ml_accelerator"
+  value: "ml-accelerator"
   export: override_required
 }
 
