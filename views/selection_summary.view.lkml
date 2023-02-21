@@ -150,11 +150,11 @@ view: selection_summary {
 view: arima_selection_summary {
   derived_table: {
     sql:
-    {% if arima_selection_summary.arimaTimeframe._parameter_value == 'minute' %}{% assign date_fmt = '%Y-%m-%d %H:%M' %}
-    {% elsif arima_selection_summary.arimaTimeframe._parameter_value == 'hour' %}{% assign date_fmt = '%Y-%m-%d %H' %}
-    {% elsif arima_selection_summary.arimaTimeframe._parameter_value == 'month' %}{% assign date_fmt = '%Y-%m' %}
-    {% elsif arima_selection_summary.arimaTimeframe._parameter_value == 'quarter' %}{% assign date_fmt = '%Y-Q%Q' %}
-    {% elsif arima_selection_summary.arimaTimeframe._parameter_value == 'year' %}{% assign date_fmt = '%Y' %}
+    {% if arima_selection_summary.arimaTimeframe._parameter_value == 'date_minute' %}{% assign date_fmt = '%Y-%m-%d %H:%M' %}
+    {% elsif arima_selection_summary.arimaTimeframe._parameter_value == 'date_hour' %}{% assign date_fmt = '%Y-%m-%d %H' %}
+    {% elsif arima_selection_summary.arimaTimeframe._parameter_value == 'date_month' %}{% assign date_fmt = '%Y-%m' %}
+    {% elsif arima_selection_summary.arimaTimeframe._parameter_value == 'date_quarter' %}{% assign date_fmt = '%Y-Q%Q' %}
+    {% elsif arima_selection_summary.arimaTimeframe._parameter_value == 'date_year' %}{% assign date_fmt = '%Y' %}
     {% else %}{% assign date_fmt = '%Y-%m-%d' %}{% endif %}
 
     SELECT column_stats.column_name
@@ -163,26 +163,31 @@ view: arima_selection_summary {
             , column_stats.input_data_row_count
             , column_stats._min_value
             , column_stats._max_value
+            , column_stats._min_date_value
+            , column_stats._max_date_value
             , column_stats._avg_value
 
           FROM (SELECT column_name,
                   COUNT(0) AS input_data_row_count
-                  , MIN(CASE WHEN '{% parameter arima_selection_summary.arimaTimeColumn %}' = column_name THEN PARSE_DATETIME('{{date_fmt}}', column_value) ELSE SAFE_CAST(column_value AS numeric) END) AS _min_value
-                  , MAX(CASE WHEN '{% parameter arima_selection_summary.arimaTimeColumn %}' = column_name THEN PARSE_DATETIME('{{date_fmt}}', column_value) ELSE SAFE_CAST(column_value AS numeric) END) AS _max_value
+                  , MIN(CASE WHEN '{% parameter arima_selection_summary.arimaTimeColumn %}' = column_name THEN SAFE.PARSE_DATETIME('{{date_fmt}}', column_value) ELSE NULL END) AS _min_date_value
+                  , MAX(CASE WHEN '{% parameter arima_selection_summary.arimaTimeColumn %}' = column_name THEN SAFE.PARSE_DATETIME('{{date_fmt}}', column_value) ELSE NULL END) AS _max_date_value
+                  , MIN(CASE WHEN '{% parameter arima_selection_summary.arimaTimeColumn %}' = column_name THEN NULL ELSE SAFE_CAST(column_value AS numeric) END) AS _min_value
+                  , MAX(CASE WHEN '{% parameter arima_selection_summary.arimaTimeColumn %}' = column_name THEN NULL ELSE SAFE_CAST(column_value AS numeric) END) AS _max_value
+
                   , AVG(SAFE_CAST(column_value AS numeric)) AS _avg_value
 
-                FROM (SELECT trim(column_name, '"') AS column_name
-                        , IF(SAFE_CAST(column_value AS STRING)='null',NULL, column_value) AS column_value
+                FROM (SELECT TRIM(column_name, '"') AS column_name
+                        , TRIM(IF(SAFE_CAST(column_value AS STRING)='null', NULL, column_value), '"') AS column_value
 
                       FROM (SELECT REGEXP_REPLACE(TO_JSON_STRING(t), r'^{|}$', '') AS row_json
                             FROM `@{GCP_PROJECT}.@{BQML_MODEL_DATASET_NAME}.{% parameter arima_selection_summary.input_data_view_name %}` AS t ) table_AS_json
                             , UNNEST(SPLIT(row_json, ',"')) AS cols
-                            , UNNEST([SPLIT(cols, ':')[SAFE_OFFSET(0)]]) AS column_name
-                            , UNNEST([SPLIT(cols, ':')[SAFE_OFFSET(1)]]) AS column_value
-
+                            , UNNEST([SPLIT(cols, '":')[SAFE_OFFSET(0)]]) AS column_name
+                            , UNNEST([SPLIT(cols, '":')[SAFE_OFFSET(1)]]) AS column_value
+                          WHERE TRIM(column_name, '"') <> '' AND column_name NOT LIKE '%-%'
+                          AND TRIM(column_name, '"') IN ('{% parameter arima_selection_summary.arimaTimeColumn %}', '{% parameter arima_selection_summary.target_field_name %}')
                       ) AS col_val
 
-                WHERE column_name <> '' AND column_name NOT LIKE '%-%'
                 GROUP BY column_name
                 ) AS column_stats
 
@@ -205,12 +210,6 @@ view: arima_selection_summary {
 
     parameter: arimaTimeColumn {
     type: unquoted
-  }
-
-  dimension: arimaTimeframe_dimension {
-    type: string
-    sql: '{% parameter arimaTimeframe %}' ;;
-    #hidden: yes
   }
 
   # added to test with Tom
@@ -247,6 +246,16 @@ view: arima_selection_summary {
   dimension: _max_value {
     type: string
     sql: ${TABLE}._max_value ;;
+  }
+
+  dimension: _min_date_value {
+    type: string
+    sql: ${TABLE}._min_date_value ;;
+  }
+
+  dimension: _max_date_value {
+    type: string
+    sql: ${TABLE}._max_date_value ;;
   }
 
   dimension: _avg_value {
