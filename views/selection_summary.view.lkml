@@ -153,7 +153,7 @@ view: arima_selection_summary {
     {% if arima_selection_summary.arimaTimeframe._parameter_value == 'date_minute' %}{% assign date_fmt = '%Y-%m-%d %H:%M' %}
     {% elsif arima_selection_summary.arimaTimeframe._parameter_value == 'date_hour' %}{% assign date_fmt = '%Y-%m-%d %H' %}
     {% elsif arima_selection_summary.arimaTimeframe._parameter_value == 'date_month' %}{% assign date_fmt = '%Y-%m' %}
-    {% elsif arima_selection_summary.arimaTimeframe._parameter_value == 'date_quarter' %}{% assign date_fmt = '%Y-Q%Q' %}
+    {% elsif arima_selection_summary.arimaTimeframe._parameter_value == 'date_quarter' %}{% assign date_fmt = '%Y-%m' %}
     {% elsif arima_selection_summary.arimaTimeframe._parameter_value == 'date_year' %}{% assign date_fmt = '%Y' %}
     {% else %}{% assign date_fmt = '%Y-%m-%d' %}{% endif %}
 
