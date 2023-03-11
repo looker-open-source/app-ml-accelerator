@@ -2,7 +2,7 @@
   "label": "Machine Learning Accelerator",
   "category_label": "Applications",
   "branding": {
-    "image_url": "",
+    "image_url": "https://github.com/looker-open-source/app-ml-accelerator/blob/main/images/AIPlatform-36-color.svg",
     "tagline": "Gain deeper insights with machine learning",
     "brand_color": "#4285F4"
   },
