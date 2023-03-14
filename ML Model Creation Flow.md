@@ -1,4 +1,4 @@
-## Example ML Model Creation
+## Example ML Model Creation Flow
 
 #### From the **Landing Page** select **+ Create New Model**
 
