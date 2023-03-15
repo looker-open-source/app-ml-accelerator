@@ -30,7 +30,7 @@ Create a dataset (e.g., `looker_bqml`) in the BigQuery connection's GCP project.
 
 #### 4. Install Application
 
-The application can be installed directly from [Looker Marketplace](https://marketplace.looker.com/) (recommended) or manually using the [remote project import](https://cloud.google.com/looker/docs/importing-projects#importing_remote_projects).
+The application can be installed directly from [Looker Marketplace](https://marketplace.looker.com/) (recommended) or manually installed following the steps below.
 
   ##### Option A: Marketplace Install
   Refer to the [Looker Docs for installing a tool from Marketplace](https://cloud.google.com/looker/docs/marketplace#installing_a_tool_from_the_marketplace). Select the BigQuery connection name chosen in Step 1 during installation.
