@@ -2,7 +2,7 @@
 
 #### Open the Machnine Learning Accelerator from the Left Side Panel
 
-![Left Side Panel Applications Section](https://github.com/looker-open-source/app-ml-accelerator/blob/marketplace-release-v1.0.1/images/0%20-%20Left%20Side%20Panel%20Applications%20Section.png)
+![Applications Menu](https://github.com/looker-open-source/app-ml-accelerator/blob/marketplace-release-v1.0.1/images/0%20-%20Applications%20Menu.png)
 
 #### From the **Landing Page** select **+ Create New Model**
 
