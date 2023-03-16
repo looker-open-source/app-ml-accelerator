@@ -6,7 +6,9 @@ View the [ML Model Creation Flow](https://github.com/looker-open-source/app-ml-a
 
 #### **IMPORTANT**
 
-**Installation should be completed by a Looker Admin. Complete all steps below for a successfully installation.**
+**Additional configuration is required after installation. A Looker Admin should complete the application configuration using the Installation Instructions below.**
+
+Report bugs or features requests with [this form](https://docs.google.com/forms/d/e/1FAIpQLSd97ptoU3TUuasZeFjSBHT9FQiyrDzjHUm7NTspEjz5kwNSAA/viewform). Contact [ml-accelerator-feedback@google.com](mailto:ml-accelerator-feedback@google.com) with questions or comments.
 
 ---
 
@@ -63,5 +65,5 @@ The application is designed for users with access to Explores and SQL Runner in 
 We recommend creating a new Looker role to easily manage user access to the application and guarantee users have the required permissions above.
   - Create a new Looker model set named `ml_accelerator` containing the LookML model `ml_accelerator`
   - Create a new Looker permission set named `ml_accelerator` containing all the permisions in the [default User permission set](https://cloud.google.com/looker/docs/admin-panel-users-roles#default_permission_sets) AND the `use_sql_runner` permission
-  - Create a new Looker role name `ml_accelerator` using the new model and permission set
+  - Create a new Looker role named `ml_accelerator` using the new model and permission set
   - Assign the `ml_accelerator` role to Looker users and groups
