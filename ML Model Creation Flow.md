@@ -1,5 +1,9 @@
 ## Example ML Model Creation Flow
 
+#### Open the Machnine Learning Accelerator from the Left Side Panel
+
+![Applications Menu](https://github.com/looker-open-source/app-ml-accelerator/blob/marketplace-release-v1.0.1/images/0%20-%20Applications%20Menu.png)
+
 #### From the **Landing Page** select **+ Create New Model**
 
 ![Landing Page](https://github.com/looker-open-source/app-ml-accelerator/blob/main/images/1%20-%20Landing%20Page.png)
