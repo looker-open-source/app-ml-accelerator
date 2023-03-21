@@ -30,12 +30,12 @@ application: ml-accelerator {
 }
 
 constant: CONNECTION_NAME {
-  value: "ml-accelerator"
+  value: "bigquery-public-data-looker"
   export: override_required
 }
 
 constant: BQML_MODEL_DATASET_NAME {
-  value: "{{_user_attributes['app_ml_accelerator_bqml_model_dataset_name']}}"
+  value: "looker_scratch"
   export: none
 }
 
