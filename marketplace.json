@@ -2,31 +2,51 @@
   "label": "Machine Learning Accelerator",
   "category_label": "Applications",
   "branding": {
+    "image_url": "https://github.com/looker-open-source/app-ml-accelerator/blob/main/images/AIPlatform-36-color.svg",
     "tagline": "Gain deeper insights with machine learning",
     "brand_color": "#4285F4"
   },
   "constants": {
     "CONNECTION_NAME": {
-      "description": "BigQuery Connection Name",
       "label": "BigQuery Connection Name",
+      "description": "The BigQuery connection the application will be allowed to use.",
       "value_constraint": "connection"
     }
   },
   "user_attributes": {
     "app_ml_accelerator_bigquery_connection_name": {
       "label": "Machine Learning Accelerator App: BigQuery Connection Name",
+      "description": "The BigQuery connection the application will be allowed to use.",
       "type": "string",
+      "required": true,
+      "value_is_hidden": false,
+      "user_can_view": false,
+      "user_can_edit": false,
       "default_value": ""
     },
     "app_ml_accelerator_bqml_model_dataset_name": {
       "label": "Machine Learning Accelerator App: BQML Model Dataset Name",
       "type": "string",
+      "required": true,
+      "value_is_hidden": false,
+      "user_can_view": false,
+      "user_can_edit": false,
       "default_value": ""
     },
     "app_ml_accelerator_gcp_project": {
       "label": "Machine Learning Accelerator App: GCP Project Name",
       "type": "string",
+      "required": true,
+      "value_is_hidden": false,
+      "user_can_view": false,
+      "user_can_edit": false,
       "default_value": ""
     }
-  }
+  },
+  "models": [
+    {
+      "name": "ml_accelerator",
+      "connection_constant": "CONNECTION_NAME"
+    }
+  ]
 }

@@ -2,8 +2,8 @@ project_name: "app-ml-accelerator"
 
 application: ml-accelerator {
   label: "Machine Learning Accelerator"
-  # file: "bundle.js"
-  url: "http://localhost:8080/bundle.js"
+  file: "bundle.js"
+  # url: "http://localhost:8080/bundle.js"
   entitlements: {
     core_api_methods: [
       "all_lookml_models",
@@ -37,8 +37,10 @@ constant: CONNECTION_NAME {
 
 constant: BQML_MODEL_DATASET_NAME {
   value: "{{_user_attributes['app_ml_accelerator_bqml_model_dataset_name']}}"
+  export: none
 }
 
 constant: GCP_PROJECT {
   value: "{{_user_attributes['app_ml_accelerator_gcp_project']}}"
+  export: none
 }
