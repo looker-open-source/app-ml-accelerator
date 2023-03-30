@@ -3,6 +3,7 @@ project_name: "app-ml-accelerator"
 application: ml-accelerator {
   label: "Machine Learning Accelerator"
   file: "bundle.js"
+  sri_hash: "jujWtES/3qvYhDWBkJzE3dgph4Y7iJ6CWnshRq3Cb9KfhNf5OXuit4bgITXEc0bH"
   entitlements: {
     core_api_methods: [
       "all_lookml_models",
