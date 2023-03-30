@@ -2,7 +2,7 @@
 
 The ML Accelerator is a purpose-built Looker application designed to give business users access to BigQuery and Vertex AI's machine learning capabilities. It provides a user-friendly interface designed to guide the user through each step of creating a machine learning model. Because of its simple, no-code interface, the application serves as a pathway for business analysts to learn and use predictive analytics in Looker.
 
-View the [ML Model Creation Flow](https://github.com/looker-open-source/app-ml-accelerator/blob/main/ML%20Model%20Creation%20Flow.md) document for an example of an end-to-end user journey.
+View the [ML Model Creation Flow](https://github.com/looker-open-source/app-ml-accelerator/blob/main/ML_Model_Creation_Flow.md) document for an example of an end-to-end user journey.
 
 #### **IMPORTANT**
 
