@@ -31,7 +31,7 @@ application: ml-accelerator {
 }
 
 constant: CONNECTION_NAME {
-  value: "bigquery-public-data-looker"
+  value: "bigquery_public_data_looker"
   export: override_required
 }
 
