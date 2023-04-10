@@ -1,5 +1,5 @@
 {
-  "label": "Machine Learning Accelerator",
+  "label": "Looker Machine Learning Extension App",
   "category_label": "Applications",
   "branding": {
     "image_uri": "https://marketplace-api.looker.com/app-icons/bqml-ext.png",
@@ -14,7 +14,7 @@
     }
   },
   "user_attributes": {
-    "app_ml_accelerator_bigquery_connection_name": {
+    "marketplace_bqml_ext_ml_accelerator_bigquery_connection_name": {
       "label": "Machine Learning Accelerator App: BigQuery Connection Name",
       "description": "The BigQuery connection the application will be allowed to use.",
       "type": "string",
@@ -24,7 +24,7 @@
       "user_can_edit": false,
       "default_value": ""
     },
-    "app_ml_accelerator_bqml_model_dataset_name": {
+    "marketplace_bqml_ext_ml_accelerator_bqml_model_dataset_name": {
       "label": "Machine Learning Accelerator App: BQML Model Dataset Name",
       "type": "string",
       "required": true,
@@ -33,7 +33,7 @@
       "user_can_edit": false,
       "default_value": ""
     },
-    "app_ml_accelerator_gcp_project": {
+    "marketplace_bqml_ext_ml_accelerator_gcp_project": {
       "label": "Machine Learning Accelerator App: GCP Project Name",
       "type": "string",
       "required": true,
