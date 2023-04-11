@@ -1,4 +1,4 @@
-project_name: "app-ml-accelerator"
+project_name: "marketplace_bqml_ext"
 
 application: ml-accelerator {
   label: "Machine Learning Accelerator"
@@ -31,7 +31,7 @@ application: ml-accelerator {
 }
 
 constant: CONNECTION_NAME {
-  value: "ml_accelerator"
+  value: "ml-accelerator"
   export: override_required
 }
 

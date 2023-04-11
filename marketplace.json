@@ -1,5 +1,5 @@
 {
-  "label": "Looker Machine Learning Extension App",
+  "label": "Machine Learning Accelerator",
   "category_label": "Applications",
   "branding": {
     "image_uri": "https://marketplace-api.looker.com/app-icons/bqml-ext.png",
@@ -8,15 +8,26 @@
   },
   "constants": {
     "CONNECTION_NAME": {
-      "label": "BigQuery Connection Name",
-      "description": "The BigQuery connection the application will be allowed to use.",
+      "label": "LookML Constant: BigQuery Connection Name",
+      "description": "The BigQuery connection the application will be allowed to use. Must be the same connection as chosen below.",
       "value_constraint": "connection"
     }
   },
   "user_attributes": {
-    "marketplace_bqml_ext_ml_accelerator_bigquery_connection_name": {
-      "label": "Machine Learning Accelerator App: BigQuery Connection Name",
-      "description": "The BigQuery connection the application will be allowed to use.",
+    "bigquery_connection_name": {
+      "label": "Machine Learning Accelerator Setting: BigQuery Connection Name",
+      "description": "The BigQuery connection the application will be allowed to use. Must be the same connection as chosen above.",
+      "type": "string",
+      "required": true,
+      "value_is_hidden": false,
+      "user_can_view": false,
+      "user_can_edit": false,
+      "default_value": "",
+      "value_constraint": "connection"
+    },
+    "gcp_project": {
+      "label": "Machine Learning Accelerator Setting: GCP Project ID",
+      "description": "The GCP project ID for the BigQuery dataset where ML models will be saved.",
       "type": "string",
       "required": true,
       "value_is_hidden": false,
@@ -24,17 +35,9 @@
       "user_can_edit": false,
       "default_value": ""
     },
-    "marketplace_bqml_ext_ml_accelerator_bqml_model_dataset_name": {
-      "label": "Machine Learning Accelerator App: BQML Model Dataset Name",
-      "type": "string",
-      "required": true,
-      "value_is_hidden": false,
-      "user_can_view": false,
-      "user_can_edit": false,
-      "default_value": ""
-    },
-    "marketplace_bqml_ext_ml_accelerator_gcp_project": {
-      "label": "Machine Learning Accelerator App: GCP Project Name",
+    "bqml_model_dataset_name": {
+      "label": "Machine Learning Accelerator Setting: BQML Model Dataset Name",
+      "description": "The dataset where ML models will be saved. Create a new dataset for BQML models (recommended) or choose the same dataset used for Looker PDTs.",
       "type": "string",
       "required": true,
       "value_is_hidden": false,
