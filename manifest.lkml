@@ -1,9 +1,9 @@
-project_name: "app-ml-accelerator"
+project_name: "marketplace_bqml_ext"
 
 application: ml-accelerator {
   label: "Machine Learning Accelerator"
   file: "bundle.js"
-  sri_hash: "hh9gMT/xnbpbA703MdPro/IyjgjtjEhsCYaflLvVPC2DIx9z4mcmBQM50ODhYo03"
+  sri_hash: "smSR+fMXmqjxPobejXvalAPKBrvI9PICAvtAVBkpdXMl1opMnrgsx5IzDSdEJ6zc"
   entitlements: {
     core_api_methods: [
       "all_lookml_models",
@@ -23,9 +23,9 @@ application: ml-accelerator {
     new_window: yes
     new_window_external_urls: ["https://developers.google.com/machine-learning/glossary", "https://cloud.google.com/vertex-ai/docs/model-registry/introduction"]
     scoped_user_attributes: [
-      "app_ml_accelerator_bigquery_connection_name",
-      "app_ml_accelerator_bqml_model_dataset_name",
-      "app_ml_accelerator_gcp_project",
+      "bigquery_connection_name",
+      "bqml_model_dataset_name",
+      "gcp_project",
     ]
   }
 }
