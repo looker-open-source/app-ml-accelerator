@@ -1,4 +1,4 @@
-project_name: "marketplace_bqml_ext"
+# project_name: "ml_accelerator"
 
 application: ml-accelerator {
   label: "Machine Learning Accelerator"
@@ -37,10 +37,10 @@ constant: CONNECTION_NAME {
 }
 
 constant: BQML_MODEL_DATASET_NAME {
-  value: "{{_user_attributes['marketplace_bqml_ext_ml_accelerator_bqml_model_dataset_name']}}"
+  value: "{{_user_attributes['ml_accelerator_ml_accelerator_bqml_model_dataset_name']}}"
   export: none
 }
 
 constant: GCP_PROJECT {
-  value: "{{_user_attributes['marketplace_bqml_ext_ml_accelerator_gcp_project']}}"
+  value: "{{_user_attributes['ml_accelerator_ml_accelerator_gcp_project']}}"
 }
