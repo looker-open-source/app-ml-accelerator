@@ -1,4 +1,4 @@
-# project_name: "ml_accelerator"
+## project_name: "ml_accelerator"
 
 application: ml-accelerator {
   label: "Machine Learning Accelerator"
