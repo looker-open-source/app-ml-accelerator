@@ -3,7 +3,7 @@ project_name: "marketplace_bqml_ext"
 application: ml-accelerator {
   label: "Machine Learning Accelerator"
   file: "bundle.js"
-  sri_hash: "dauOTVDu9NxgNAAyEv7YuRlIpBYBYv3EwzJ4SfFCXp8kec5lvXe0li0vqua48qFE"
+  sri_hash: "m4I4d+ZxcBrXHRbdESrSYRW8rGWNUrquzQwRwA4eY1jfbidR+IH1GV1tSiuCKt0T"
   entitlements: {
     core_api_methods: [
       "all_lookml_models",
