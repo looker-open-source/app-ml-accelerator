@@ -212,7 +212,6 @@ view: arima_selection_summary {
     type: unquoted
   }
 
-  # added to test with Tom
   parameter: arimaTimeframe {
     type: unquoted
   }
