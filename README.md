@@ -40,9 +40,9 @@ The application can be installed directly from [Looker Marketplace](https://mark
   ##### Option B: Manual Install
   - [Fork this GitHub repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo#forking-a-repository)
   - [Create a blank LookML project](https://cloud.google.com/looker/docs/create-projects#creating_a_blank_project) named `marketplace_bqml_ext`
-  
+
       **IMPORTANT: The LookML project must be named `marketplace_bqml_ext`**
-  
+
   - [Connect the new LookML project to the forked repository](https://cloud.google.com/looker/docs/setting-up-git-connection)
   - Update the value of the CONNECTION_NAME constant in the `manifest.lkml` file
   - [Commit and deploy changes to production](https://cloud.google.com/looker/docs/version-control-and-deploying-changes#getting_your_changes_to_production)
