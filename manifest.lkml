@@ -14,7 +14,8 @@ application: ml-accelerator {
       "me",
       "user_attribute_user_values",
       "create_sql_query",
-      "run_sql_query"
+      "run_sql_query",
+      "get_model"
     ]
 
     use_form_submit: yes
