@@ -21,10 +21,10 @@ You will need to select a BigQuery connection during installation. The applicati
 #### 2. Adjust Service Account Roles
 
 The service account used by the BigQuery connection chosen in Step 1 should have the following IAM predefined roles.
-  - BigQuery Data Editor
-  - BigQuery Job User
-  - Vertex AI User
 
+- BigQuery Data Editor
+- BigQuery Job User
+- Vertex AI User
 
 #### 3. Create BigQuery Dataset for ML Models
 
@@ -34,39 +34,43 @@ Create a dataset (e.g., `looker_bqml`) in the BigQuery connection's GCP project.
 
 The application can be installed directly from [Looker Marketplace](https://marketplace.looker.com/) (recommended) or manually installed following the steps below.
 
-  ##### Option A: Marketplace Install
-  Refer to the [Looker Docs for installing a tool from Marketplace](https://cloud.google.com/looker/docs/marketplace#installing_a_tool_from_the_marketplace). Select the BigQuery connection name chosen in Step 1 during installation.
+##### Option A: Marketplace Install
 
-  ##### Option B: Manual Install
-  - [Fork this GitHub repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo#forking-a-repository)
-  - [Create a blank LookML project](https://cloud.google.com/looker/docs/create-projects#creating_a_blank_project) named `marketplace_bqml_ext`
+Refer to the [Looker Docs for installing a tool from Marketplace](https://cloud.google.com/looker/docs/marketplace#installing_a_tool_from_the_marketplace). Select the BigQuery connection name chosen in Step 1 during installation.
 
-      **IMPORTANT: The LookML project must be named `marketplace_bqml_ext`**
+##### Option B: Manual Install
 
-  - [Connect the new LookML project to the forked repository](https://cloud.google.com/looker/docs/setting-up-git-connection)
-  - Update the value of the CONNECTION_NAME constant in the `manifest.lkml` file
-  - [Commit and deploy changes to production](https://cloud.google.com/looker/docs/version-control-and-deploying-changes#getting_your_changes_to_production)
+- [Fork this GitHub repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo#forking-a-repository)
+- [Create a blank LookML project](https://cloud.google.com/looker/docs/create-projects#creating_a_blank_project) named `marketplace_bqml_ext`
+
+  **IMPORTANT: The LookML project must be named `marketplace_bqml_ext`**
+
+- [Connect the new LookML project to the forked repository](https://cloud.google.com/looker/docs/setting-up-git-connection)
+- Update the value of the CONNECTION_NAME constant in the `manifest.lkml` file
+- [Commit and deploy changes to production](https://cloud.google.com/looker/docs/version-control-and-deploying-changes#getting_your_changes_to_production)
 
 #### 5. Configure Application with User Attributes
 
-The application uses three [Looker user attributes](https://cloud.google.com/looker/docs/admin-panel-users-user-attributes) to store its configuration settings. The following user attributes are required for the application to work properly. Each user attribute needs to be named exactly as listed below with a data type of `String`. The recommended setting for user access is `None`.
+The application uses three [Looker user attributes](https://cloud.google.com/looker/docs/admin-panel-users-user-attributes) to store its configuration settings. The following user attributes are required for the application to work properly. Each user attribute needs to be named exactly as listed below with a data type of `String`. The recommended setting for user access is `View`.
 
 Create the following user attributes and set their default values.
 
-  | **Required User Attribute Name**                                | **Default Value Description**                                     |
-  |-----------------------------------------------------------------|-------------------------------------------------------------------|
-  | marketplace_bqml_ext_ml_accelerator_bigquery_connection_name    | Connection name chosen in Step 1                                  |
-  | marketplace_bqml_ext_ml_accelerator_gcp_project                 | Projectd ID of the BigQuery dataset created in Step 3             |
-  | marketplace_bqml_ext_ml_accelerator_bqml_model_dataset_name     | Name of BigQuery dataset created in Step 3 (e.g., `looker_bqml`)  |
+| **Required User Attribute Name**                             | **Default Value Description**                                    |
+| ------------------------------------------------------------ | ---------------------------------------------------------------- |
+| marketplace_bqml_ext_ml_accelerator_bigquery_connection_name | Connection name chosen in Step 1                                 |
+| marketplace_bqml_ext_ml_accelerator_gcp_project              | Projectd ID of the BigQuery dataset created in Step 3            |
+| marketplace_bqml_ext_ml_accelerator_bqml_model_dataset_name  | Name of BigQuery dataset created in Step 3 (e.g., `looker_bqml`) |
 
 #### 6. Create a Looker Role to Manage User Access
 
 The application is designed for users with access to Explores and SQL Runner in Looker. Users will need the following permissions to use the application.
-  - `explore`
-  - `use_sql_runner`
+
+- `explore`
+- `use_sql_runner`
 
 We recommend creating a new Looker role to easily manage user access to the application and guarantee users have the required permissions above.
-  - Create a new Looker model set named `ML Accelerator` containing the LookML model `ml_accelerator`
-  - Create a new Looker permission set named `ML Accelerator` containing all the permisions in the [default User permission set](https://cloud.google.com/looker/docs/admin-panel-users-roles#default_permission_sets) AND the `use_sql_runner` permission
-  - Create a new Looker role named `ML Accelerator` using the new model and permission set
-  - Assign the `ML Accelerator` role to Looker users and groups
+
+- Create a new Looker model set named `ML Accelerator` containing the LookML model `ml_accelerator`
+- Create a new Looker permission set named `ML Accelerator` containing all the permisions in the [default User permission set](https://cloud.google.com/looker/docs/admin-panel-users-roles#default_permission_sets) AND the `use_sql_runner` permission
+- Create a new Looker role named `ML Accelerator` using the new model and permission set
+- Assign the `ML Accelerator` role to Looker users and groups
