@@ -20,7 +20,7 @@
       "type": "string",
       "required": true,
       "value_is_hidden": false,
-      "user_can_view": false,
+      "user_can_view": true,
       "user_can_edit": false,
       "default_value": "",
       "value_constraint": "connection"
@@ -31,7 +31,7 @@
       "type": "string",
       "required": true,
       "value_is_hidden": false,
-      "user_can_view": false,
+      "user_can_view": true,
       "user_can_edit": false,
       "default_value": ""
     },
@@ -41,7 +41,7 @@
       "type": "string",
       "required": true,
       "value_is_hidden": false,
-      "user_can_view": false,
+      "user_can_view": true,
       "user_can_edit": false,
       "default_value": ""
     }
