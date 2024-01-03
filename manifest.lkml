@@ -3,7 +3,7 @@ project_name: "marketplace_bqml_ext"
 application: ml-accelerator {
   label: "Machine Learning Accelerator"
   file: "bundle.js"
-  sri_hash: "Bf330NOp0B0RK3lAsFPd0mY2/wLNeuhSEnqz/e/vtX97ZDZX2P7HQSHOBMvQQn1V"
+  sri_hash: "42B+X/IqXGcQieDwMchTvIIp2xgcAJBERB3g3RxH0QASALalYkcj2jG+3UMfpm/M"
   entitlements: {
     core_api_methods: [
       "all_lookml_models",
@@ -51,5 +51,3 @@ constant: GENERATE_TEXT_MODEL_NAME {
 # https://cloud.google.com/bigquery/docs/generate-text
 # Also, modify the service account used for the connection to obtain a new permission: bigquery.connections.use
 # This is available to users with role Bigquery Connection User (https://cloud.google.com/iam/docs/understanding-roles#bigquery.connectionUser)
-
-
