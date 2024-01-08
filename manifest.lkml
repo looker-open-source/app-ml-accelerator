@@ -7,6 +7,7 @@ application: ml-accelerator {
   entitlements: {
     core_api_methods: [
       "all_lookml_models",
+      "all_users",
       "create_query",
       "run_query",
       "lookml_model_explore",
