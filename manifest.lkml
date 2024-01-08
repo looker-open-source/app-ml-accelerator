@@ -2,9 +2,8 @@ project_name: "marketplace_bqml_ext"
 
 application: ml-accelerator {
   label: "Machine Learning Accelerator"
-  # file: "bundle.js"
-  url: "http://localhost:8080/bundle.js"
-  # sri_hash: "42B+X/IqXGcQieDwMchTvIIp2xgcAJBERB3g3RxH0QASALalYkcj2jG+3UMfpm/M"
+  file: "bundle.js"
+  sri_hash: "j61Mwoa72MHPpmgt8pa90bHM+BzSsfh9ztqz2AYSCn/jGJxeEp53u3/0lxyWwUlE"
   entitlements: {
     core_api_methods: [
       "all_lookml_models",
