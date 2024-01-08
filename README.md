@@ -25,7 +25,6 @@ The service account used by the BigQuery connection chosen in Step 1 should have
   - BigQuery Job User
   - Vertex AI User
 
-
 #### 3. Create BigQuery Dataset for ML Models
 
 Create a dataset (e.g., `looker_bqml`) in the BigQuery connection's GCP project.
@@ -49,7 +48,7 @@ The application can be installed directly from [Looker Marketplace](https://mark
 
 #### 5. Configure Application with User Attributes
 
-The application uses three [Looker user attributes](https://cloud.google.com/looker/docs/admin-panel-users-user-attributes) to store its configuration settings. The following user attributes are required for the application to work properly. Each user attribute needs to be named exactly as listed below with a data type of `String`. The recommended setting for user access is `None`.
+The application uses three [Looker user attributes](https://cloud.google.com/looker/docs/admin-panel-users-user-attributes) to store its configuration settings. The following user attributes are required for the application to work properly. Each user attribute needs to be named exactly as listed below with a data type of `String`. The recommended setting for user access is `View`.
 
 Create the following user attributes and set their default values.
 
@@ -70,3 +69,33 @@ We recommend creating a new Looker role to easily manage user access to the appl
   - Create a new Looker permission set named `ML Accelerator` containing all the permisions in the [default User permission set](https://cloud.google.com/looker/docs/admin-panel-users-roles#default_permission_sets) AND the `use_sql_runner` permission
   - Create a new Looker role named `ML Accelerator` using the new model and permission set
   - Assign the `ML Accelerator` role to Looker users and groups
+
+#### 7. Setup AI-Generated Model Evaluation Summaries
+
+After release 2.2, the application can use text generating AI to summarize the model evaluation to more clearly communicate model performance. This optional feature requires additional setup.
+
+  ##### 7a: Add an External Connection from Bigquery to Vertex
+  In BigQuery, an [external connection](https://cloud.google.com/bigquery/docs/external-data-sources) is required to connect it to pre-trained models in Vertex AI.  If one is not already set up, you must do so. A tutorial can also be found [here](https://cloud.google.com/bigquery/docs/generate-text-tutorial). 
+1. Under the same gcp project already in use for the application, verify the [BigQuery Connection](https://console.cloud.google.com/apis/library/bigqueryconnection.googleapis.com) and [Vertex AI](https://console.cloud.google.com/apis/library/aiplatform.googleapis.com) APIs are both enabled. 
+2. In BigQuery click “add,” then "Connections to external data sources." 
+3. Select "BigLake and remote function" and use the same location as the dataset already in use by the application
+4. The ID will be the name of your connection. Since it could be used to connect to any number of pre-trained models in vertex it is wise to choose something generic, such as “ext-vertex-ai”
+5. Create the connection
+6. Go to the connection and copy the service account ID. In order to access remote functions from Vertex AI, the [BigQuery connection delegation service agent](https://cloud.google.com/iam/docs/service-agents#bigquery-connection-delegation-service-agent) (of the form bqcx-[#]@gcp-sa-bigquery-condel.iam.gserviceaccount.com) that is associated with this connection must have the "Vertex AI User" role, which can be added in IAM.
+
+  ##### 7b: Create the Remote Text-Generation Model
+
+In BigQuery, enter the following statement in the query editor (this code uses the suggested naming conventions for the the steps above and assumes region is US-Multi). The text-bison@002 model is suggested, but other LLM models with good performance generating text could also be used. The model_name will be later added as a User Attribute value. A suggestion for model_name is "mla-text-bison"
+```
+CREATE OR REPLACE MODEL project_id.dataset_id.model_name
+  REMOTE WITH CONNECTION `us.ext-vertex-ai`
+  OPTIONS (remote_service_type = 'text-bison@002');
+```
+
+  ##### 7c: Update the Relevant User Attribute
+
+  Similar to section 5 above.
+  
+  | **Required User Attribute Name**                                | **Default Value Description**  |
+  |-----------------------------------------------------------------|--------------------------------|
+  | marketplace_bqml_ext_ml_accelerator_generate_text_model_name    | Name chosen in step 7b above   |
