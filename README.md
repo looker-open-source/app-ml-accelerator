@@ -91,6 +91,7 @@ CREATE OR REPLACE MODEL project_id.dataset_id.model_name
   REMOTE WITH CONNECTION `us.ext-vertex-ai`
   OPTIONS (remote_service_type = 'text-bison@002');
 ```
+This will take a few minutes to load and will not return any results. 
 
   ##### 7c: Update the Relevant User Attribute
 
