@@ -47,7 +47,7 @@
     },
     "generate_text_model_name": {
       "label": "GenAI Text Model Name",
-      "description": "Name of an LLM model to generate text summaries (optional feature). Must be in same dataset as above. See https://cloud.google.com/bigquery/docs/generate-text for setup instructions.",
+      "description": "Name of an LLM model to generate text summaries (optional feature). Must be in same dataset as above. See https://github.com/looker-open-source/app-ml-accelerator/blob/main/README.md#7-setup-ai-generated-evaluation-summaries for setup instructions.",
       "type": "string",
       "required": false,
       "value_is_hidden": false,
