@@ -15,33 +15,43 @@
   },
   "user_attributes": {
     "bigquery_connection_name": {
-      "label": "Machine Learning Accelerator Setting: BigQuery Connection Name",
+      "label": "BigQuery Connection Name",
       "description": "The BigQuery connection the application will be allowed to use. Must be the same connection as chosen above.",
       "type": "string",
       "required": true,
       "value_is_hidden": false,
-      "user_can_view": false,
+      "user_can_view": true,
       "user_can_edit": false,
       "default_value": "",
       "value_constraint": "connection"
     },
     "gcp_project": {
-      "label": "Machine Learning Accelerator Setting: GCP Project ID",
+      "label": "GCP Project ID",
       "description": "The GCP project ID for the BigQuery dataset where ML models will be saved.",
       "type": "string",
       "required": true,
       "value_is_hidden": false,
-      "user_can_view": false,
+      "user_can_view": true,
       "user_can_edit": false,
       "default_value": ""
     },
     "bqml_model_dataset_name": {
-      "label": "Machine Learning Accelerator Setting: BQML Model Dataset Name",
+      "label": "BQML Model Dataset Name",
       "description": "The dataset where ML models will be saved. Create a new dataset for BQML models (recommended) or choose the same dataset used for Looker PDTs.",
       "type": "string",
       "required": true,
       "value_is_hidden": false,
-      "user_can_view": false,
+      "user_can_view": true,
+      "user_can_edit": false,
+      "default_value": ""
+    },
+    "generate_text_model_name": {
+      "label": "GenAI Text Model Name",
+      "description": "Name of an LLM model to generate text summaries (optional feature). Must be in same dataset as above. See https://github.com/looker-open-source/app-ml-accelerator/blob/main/README.md#7-setup-ai-generated-evaluation-summaries for setup instructions.",
+      "type": "string",
+      "required": false,
+      "value_is_hidden": false,
+      "user_can_view": true,
       "user_can_edit": false,
       "default_value": ""
     }
